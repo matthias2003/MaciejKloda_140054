@@ -7,19 +7,14 @@
         mc:Ignorable="d"
         Title="DockPanel" MinHeight="450" MinWidth="500" Height="450" Width="500">
     <DockPanel>
-        <Button DockPanel.Dock="Bottom" Height="50">Bottom</Button>
-        <Button DockPanel.Dock="Left" Width="50">Left</Button>
-        <Button DockPanel.Dock="Right" Width="50">Right</Button>
-
-        <Button DockPanel.Dock="Top"  Background="Red" Height="100">Top</Button>
-        <Button DockPanel.Dock="Top" Background="green" Width="150" Height="150">Top2</Button>
-        <Button DockPanel.Dock="Right" Height="75" Width="100">Right2</Button>
-        <Button DockPanel.Dock="Right" Height="75" Width="100">Right3</Button>
-        <Button DockPanel.Dock="Top" Background="blue" Height="50" >Top3</Button>
-
-        <Button>Fill</Button>
-        
-       
-        
+        <Button Content="Bottom" DockPanel.Dock="Bottom" Height="50"/>
+        <Button Content="Left" DockPanel.Dock="Left" Width="50"/>
+        <Button Content="Right" DockPanel.Dock="Right" Width="50"/>
+        <Button Content="Top" DockPanel.Dock="Top"  Background="Red" Height="100"/>
+        <Button Content="Top2" DockPanel.Dock="Top" Background="green" Width="150" Height="150"/>
+        <Button Content="Right2" DockPanel.Dock="Right" Height="75" Width="100"/>
+        <Button Content="Right3" DockPanel.Dock="Right" Height="75" Width="100"/>
+        <Button Content="Top3" DockPanel.Dock="Top" Background="blue" Height="50"/>
+        <Button Content="Fill" />
     </DockPanel>
 </Window>

@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
 namespace MaciejKloda_140054
 {
@@ -10,5 +8,4 @@ namespace MaciejKloda_140054
     public partial class App : Application
     {
     }
-
 }

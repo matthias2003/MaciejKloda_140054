@@ -8,19 +8,19 @@
         Title="StudentDatabase" MinHeight="450" MinWidth="500" Height="450" Width="500">
         <StackPanel>
          <StackPanel Margin="10">
-            <Label>Name:</Label>
+            <Label Content="Name:"/>
             <TextBox Height="30"/>
         </StackPanel>
         <StackPanel Margin="10">
-            <Label>Surname:</Label>
+            <Label Content="Surname:"/>
             <TextBox Height="30"/>
         </StackPanel>
         <StackPanel Margin="10">
-            <Label>Date of birth:</Label>
+            <Label Content="Date of birth:"/>
             <TextBox Height="30"/>
         </StackPanel>
         <StackPanel Margin="10">
-            <Label>Term:</Label>
+            <Label Content="Term:"/>
             <TextBox Height="30"/>
         </StackPanel>
         <Button Width="100" Height="50" Content="Submit"/>
