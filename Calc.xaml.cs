@@ -44,7 +44,8 @@ namespace MaciejKloda_140054
 
             if (btnContent == "=")
             {
-                currentValue = Double.Parse(TextBox_Result.Text);
+                Double.TryParse(TextBox_Result.Text, out double result);
+                currentValue = result;
                 double res = Operations(lastValue,currentValue,currentOperation);
                 TextBox_Result.Text = res.ToString();
                 currentValue = 0;
@@ -61,7 +62,10 @@ namespace MaciejKloda_140054
                 if( lastValue != 0 )
                 {
                     currentValue = Double.Parse(TextBox_Result.Text);
-                    double res = Operations(currentValue, lastValue, currentOperation);
+                    Debug.WriteLine(lastValue);
+                    Debug.WriteLine(currentValue);
+                    Debug.WriteLine(currentOperation);
+                    double res = Operations(lastValue, currentValue, currentOperation);
                     currentValue = 0;
                     lastValue = res;
                     currentOperation = btnContent;
