@@ -92,5 +92,4 @@ namespace MaciejKloda_140054
             }   
         }
     }
-
 }
