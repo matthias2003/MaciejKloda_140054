@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Diagnostics;
 
 namespace MaciejKloda_140054
 {
@@ -62,9 +60,6 @@ namespace MaciejKloda_140054
                 if( lastValue != 0 )
                 {
                     currentValue = Double.Parse(TextBox_Result.Text);
-                    Debug.WriteLine(lastValue);
-                    Debug.WriteLine(currentValue);
-                    Debug.WriteLine(currentOperation);
                     double res = Operations(lastValue, currentValue, currentOperation);
                     currentValue = 0;
                     lastValue = res;
