@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace MaciejKloda_140054
 {
@@ -16,8 +17,8 @@ namespace MaciejKloda_140054
             }
             set
             {
-               _PlayerOne = value;
-               OnPropertyChanged("PersonId");
+                _PlayerOne = value;
+                OnPropertyChanged("PersonId");
             }
         }
 
@@ -46,14 +47,52 @@ namespace MaciejKloda_140054
                 _PlayerTwo.Add(_person);
             }
 
+            _PlayerOne.CollectionChanged += PlayerOne_CollectionChanged;
+            _PlayerTwo.CollectionChanged += PlayerTwo_CollectionChanged;
+        }
+
+        private void PlayerOne_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CheckWinner(_PlayerOne, "Player Two");
+        }
+
+        private void PlayerTwo_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CheckWinner(_PlayerTwo, "Player One");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            var eventHanlder = PropertyChanged;
-            if (eventHanlder != null) eventHanlder(this, new PropertyChangedEventArgs(propertyName));
+            var eventHandler = PropertyChanged;
+            if (eventHandler != null) eventHandler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void CheckWinner(ObservableCollection<int> tab, string opponentName)
+        {
+            bool hasRemainingShips = tab.Contains(1);
+
+            if (!hasRemainingShips)
+            {
+                MessageBox.Show($"The Winner is {opponentName}!");
+                ResetGame();
+            }
+        }
+
+        public void ResetGame()
+        {
+            _PlayerOne.CollectionChanged -= PlayerOne_CollectionChanged;
+            _PlayerTwo.CollectionChanged -= PlayerTwo_CollectionChanged;
+
+            for (int i = 0; i < 25; i++)
+            {
+                PlayerOne[i] = 0;
+                PlayerTwo[i] = 0;
+            }
+
+            _PlayerOne.CollectionChanged += PlayerOne_CollectionChanged;
+            _PlayerTwo.CollectionChanged += PlayerTwo_CollectionChanged;
         }
     }
 }
