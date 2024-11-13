@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Lista3
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Interaction logic for AddPerson.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddPerson : Window
     {
-        public MainWindow()
+        public AddPerson()
         {
             InitializeComponent();
         }
