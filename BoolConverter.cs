@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows.Data;
+﻿using System.Windows.Data;
 using System.Windows.Media;
 
 namespace MaciejKloda_140054
@@ -10,7 +9,6 @@ namespace MaciejKloda_140054
         {
             bool useFirstConverter = parameter?.ToString() == "First";
 
-            Debug.WriteLine(value);
             switch (value)
             {
                 case 3:
