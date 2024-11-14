@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lista3.Properties
+namespace List3.Properties
 {
 
 
