@@ -9,7 +9,7 @@
     <Window.Resources>
         <local:BoolConverter x:Key="BoolConverter" />
     </Window.Resources>
-    <Grid>
+    <Grid x:Name="GridShipsOne">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -32,56 +32,6 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Label Content="Choose your ships" Grid.ColumnSpan="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-        <Button Content="1,1" Tag="0" Background="{Binding Path=PlayerOne[0], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Row="1" />
-        <Button Content="1,2" Tag="1" Background="{Binding Path=PlayerOne[1], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="1" Grid.Row="1"/>
-        <Button Content="1,3" Tag="2" Background="{Binding Path=PlayerOne[2], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="2" Grid.Row="1"/>
-        <Button Content="1,4" Tag="3" Background="{Binding Path=PlayerOne[3], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="3" Grid.Row="1"/>
-        <Button Content="1,5" Tag="4" Background="{Binding Path=PlayerOne[4], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="4" Grid.Row="1"/>
-        <Button Content="2,1" Tag="5" Background="{Binding Path=PlayerOne[5], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Row="2"/>
-        <Button Content="2,2" Tag="6" Background="{Binding Path=PlayerOne[6], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="1" Grid.Row="2" />
-        <Button Content="2,3" Tag="7" Background="{Binding Path=PlayerOne[7], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="2" Grid.Row="2" />
-        <Button Content="2,4" Tag="8" Background="{Binding Path=PlayerOne[8], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="3" Grid.Row="2" />
-        <Button Content="2,5" Tag="9" Background="{Binding Path=PlayerOne[9], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="4" Grid.Row="2" />
-        <Button Content="3,1" Tag="10" Background="{Binding Path=PlayerOne[10], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Row="3" />
-        <Button Content="3,2" Tag="11" Background="{Binding Path=PlayerOne[11], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="1" Grid.Row="3" />
-        <Button Content="3,3" Tag="12" Background="{Binding Path=PlayerOne[12], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="2" Grid.Row="3" />
-        <Button Content="3,4" Tag="13" Background="{Binding Path=PlayerOne[13], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="3" Grid.Row="3" />
-        <Button Content="3,5" Tag="14" Background="{Binding Path=PlayerOne[14], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="4" Grid.Row="3" />
-        <Button Content="4,1" Tag="15" Background="{Binding Path=PlayerOne[15], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Row="4" />
-        <Button Content="4,2" Tag="16" Background="{Binding Path=PlayerOne[16], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="1" Grid.Row="4" />
-        <Button Content="4,3" Tag="17" Background="{Binding Path=PlayerOne[17], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="2" Grid.Row="4" />
-        <Button Content="4,4" Tag="18" Background="{Binding Path=PlayerOne[18], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="3" Grid.Row="4" />
-        <Button Content="4,5" Tag="19" Background="{Binding Path=PlayerOne[19], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="4" Grid.Row="4" />
-        <Button Content="5,1" Tag="20" Background="{Binding Path=PlayerOne[20], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Row="5" />
-        <Button Content="5,2" Tag="21" Background="{Binding Path=PlayerOne[21], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="1" Grid.Row="5" />
-        <Button Content="5,3" Tag="22" Background="{Binding Path=PlayerOne[22], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="2" Grid.Row="5" />
-        <Button Content="5,4" Tag="23" Background="{Binding Path=PlayerOne[23], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="3" Grid.Row="5" />
-        <Button Content="5,5" Tag="24" Background="{Binding Path=PlayerOne[24], Mode=TwoWay, Converter={StaticResource BoolConverter}, ConverterParameter='First'}" Click="Button_Click__Choose_Ships" Grid.Column="4" Grid.Row="5" />
         <Label Content="Shoot enemy ships" Grid.Row="6" Grid.ColumnSpan="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-        <Button Content="1,1" Tag="0" Background="{Binding Path=PlayerTwo[0], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Row="7" />
-        <Button Content="1,2" Tag="1" Background="{Binding Path=PlayerTwo[1], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="1" Grid.Row="7"/>
-        <Button Content="1,3" Tag="2" Background="{Binding Path=PlayerTwo[2], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="2" Grid.Row="7"/>
-        <Button Content="1,4" Tag="3" Background="{Binding Path=PlayerTwo[3], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="3" Grid.Row="7"/>
-        <Button Content="1,5" Tag="4" Background="{Binding Path=PlayerTwo[4], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="4" Grid.Row="7"/>
-        <Button Content="2,1" Tag="5" Background="{Binding Path=PlayerTwo[5], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Row="8"/>
-        <Button Content="2,2" Tag="6" Background="{Binding Path=PlayerTwo[6], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="1" Grid.Row="8" />
-        <Button Content="2,3" Tag="7" Background="{Binding Path=PlayerTwo[7], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="2" Grid.Row="8" />
-        <Button Content="2,4" Tag="8" Background="{Binding Path=PlayerTwo[8], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="3" Grid.Row="8" />
-        <Button Content="2,5" Tag="9" Background="{Binding Path=PlayerTwo[9], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="4" Grid.Row="8" />
-        <Button Content="3,1" Tag="10" Background="{Binding Path=PlayerTwo[10], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Row="9" />
-        <Button Content="3,2" Tag="11" Background="{Binding Path=PlayerTwo[11], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="1" Grid.Row="9" />
-        <Button Content="3,3" Tag="12" Background="{Binding Path=PlayerTwo[12], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="2" Grid.Row="9" />
-        <Button Content="3,4" Tag="13" Background="{Binding Path=PlayerTwo[13], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="3" Grid.Row="9" />
-        <Button Content="3,5" Tag="14" Background="{Binding Path=PlayerTwo[14], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="4" Grid.Row="9" />
-        <Button Content="4,1" Tag="15" Background="{Binding Path=PlayerTwo[15], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Row="10" />
-        <Button Content="4,2" Tag="16" Background="{Binding Path=PlayerTwo[16], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="1" Grid.Row="10" />
-        <Button Content="4,3" Tag="17" Background="{Binding Path=PlayerTwo[17], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="2" Grid.Row="10" />
-        <Button Content="4,4" Tag="18" Background="{Binding Path=PlayerTwo[18], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="3" Grid.Row="10" />
-        <Button Content="4,5" Tag="19" Background="{Binding Path=PlayerTwo[19], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="4" Grid.Row="10" />
-        <Button Content="5,1" Tag="20" Background="{Binding Path=PlayerTwo[20], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Row="11" />
-        <Button Content="5,2" Tag="21" Background="{Binding Path=PlayerTwo[21], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="1" Grid.Row="11" />
-        <Button Content="5,3" Tag="22" Background="{Binding Path=PlayerTwo[22], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="2" Grid.Row="11" />
-        <Button Content="5,4" Tag="23" Background="{Binding Path=PlayerTwo[23], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="3" Grid.Row="11" />
-        <Button Content="5,5" Tag="24" Background="{Binding Path=PlayerTwo[24], Mode=TwoWay, Converter={StaticResource BoolConverter}}" Click="Button_Click__Shoot" Grid.Column="4" Grid.Row="11" />
     </Grid>
 </Window>
