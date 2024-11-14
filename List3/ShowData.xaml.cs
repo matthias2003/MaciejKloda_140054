@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using Lista3;
 
@@ -13,9 +14,16 @@ namespace List3
         public ShowData()
         {
             InitializeComponent();
-            listOfPersons.Add(new Person("aaaa", "bbbb","1231232"));
-            listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-            listOfPersons.Add(new Person("aaaa", "bbbb","1231232"));
+            if (File.Exists("C://Users//Maciek//Desktop//listOfPersons.xml"))
+            {
+                listOfPersons = Serialization.DeserializeToObject<List<Person>>("C://Users//Maciek//Desktop//listOfPersons.xml");
+            }
+            else
+            {
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+            }
             PersonDataGrid.ItemsSource = listOfPersons;
         }
 
@@ -52,6 +60,10 @@ namespace List3
                 MessageBox.Show("Please choose person to view details");
                 return;
             }
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Serialization.SerializeToXml<List<Person>>(listOfPersons, "C://Users//Maciek//Desktop//listOfPersons.xml");
         }
     }
 }

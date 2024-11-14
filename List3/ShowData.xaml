@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:List3"
         mc:Ignorable="d"
+        Closing="Window_Closing"
         Title="ShowData" Height="450" Width="800">
-        <Grid>
+    <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
@@ -20,8 +21,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="1">
-            <Button Content="Add" Width="100" Margin="5" Click="Button_Click_AddPerson" />
-            <Button Content="Properties" Width="100" Click="Button_Click_Properties" />
+            <Button Content="Add" Width="100" Padding="5" Margin="10" Click="Button_Click_AddPerson" />
+            <Button Content="Properties" Padding="5" Margin="10" Width="100" Click="Button_Click_Properties" />
         </StackPanel>
     </Grid>
 </Window>

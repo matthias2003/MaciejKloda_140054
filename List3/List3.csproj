@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Person.cs" />
+    <Compile Include="Serialization.cs" />
     <Compile Include="ShowData.xaml.cs">
       <DependentUpon>ShowData.xaml</DependentUpon>
       <SubType>Code</SubType>
