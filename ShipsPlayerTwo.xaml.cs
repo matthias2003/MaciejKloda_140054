@@ -12,10 +12,10 @@ namespace MaciejKloda_140054
         public ShipsPlayerTwo()
         {
             InitializeComponent();
-            CreateBoard("");
-            CreateBoard("second");
+            CreateBoard(true);
+            CreateBoard(false);
         }
-        public void CreateBoard(string parameter)
+        public void CreateBoard(bool parameter)
         {
             var boolConverter = new BoolConverter();
             int counter = 0;
@@ -23,37 +23,31 @@ namespace MaciejKloda_140054
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (parameter != "second")
+                    Button btn = new Button();
+                    Binding binding;
+
+                    if (parameter)
                     {
-                        Button btn = new Button();
-                        Binding binding = new Binding($"PlayerTwo[{counter}]");
-                        binding.Mode = BindingMode.OneWay;
-                        binding.Converter = boolConverter;
+                        binding = new Binding($"PlayerTwo[{counter}]");
                         binding.ConverterParameter = "First";
-                        btn.Tag = counter;
-                        counter++;
-                        btn.Content = $"{i},{j + 1}";
-                        BindingOperations.SetBinding(btn, Button.BackgroundProperty, binding);
                         btn.Click += Button_Click__Choose_Ships;
                         Grid.SetRow(btn, i);
-                        Grid.SetColumn(btn, j);
-                        GridShipsTwo.Children.Add(btn);
                     }
                     else
                     {
-                        Button btn = new Button();
-                        Binding binding = new Binding($"PlayerOne[{counter}]");
-                        binding.Mode = BindingMode.OneWay;
-                        binding.Converter = boolConverter;
-                        btn.Tag = counter;
-                        counter++;
-                        btn.Content = $"{i},{j + 1}";
-                        BindingOperations.SetBinding(btn, Button.BackgroundProperty, binding);
+                        binding = new Binding($"PlayerOne[{counter}]");
                         btn.Click += Button_Click__Shoot;
                         Grid.SetRow(btn, i + 6);
-                        Grid.SetColumn(btn, j);
-                        GridShipsTwo.Children.Add(btn);
                     }
+
+                    binding.Mode = BindingMode.OneWay;
+                    binding.Converter = boolConverter;
+                    btn.Tag = counter;
+                    counter++;
+                    btn.Content = $"{i},{j + 1}";
+                    BindingOperations.SetBinding(btn, Button.BackgroundProperty, binding);
+                    Grid.SetColumn(btn, j);
+                    GridShipsTwo.Children.Add(btn);
                 }
             }
         }
