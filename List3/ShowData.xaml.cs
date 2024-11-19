@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Lista3;
@@ -58,6 +59,22 @@ namespace List3
             }
             else {
                 MessageBox.Show("Please choose person to view details");
+                return;
+            }
+        }
+
+
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
+        {
+            if (PersonDataGrid.SelectedItem != null)
+            {
+                Person selectedPerson = (Person)PersonDataGrid.SelectedItem;
+                listOfPersons.Remove(selectedPerson);
+                PersonDataGrid.Items.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Please choose person to delete");
                 return;
             }
         }
