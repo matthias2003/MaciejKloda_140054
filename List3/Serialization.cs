@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Lista3
 {
-    internal class Serialization
+    public class Serialization
     {
         public static T DeserializeToObject<T>(string filePath) where T : class
         {

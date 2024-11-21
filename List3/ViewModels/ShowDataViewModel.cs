@@ -1,30 +1,29 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using List3;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using Lista3;
 
-namespace List3
+namespace List3.ViewModels
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
-    public partial class ShowData : Window
+    public class ShowDataViewModel
     {
-        //List<Person> listOfPersons = new List<Person>();
-        public ShowData()
+        public List<Person> listOfPersons = new List<Person>();
+        public ShowDataViewModel()
         {
-            //InitializeComponent();
-            //if (File.Exists("D://listOfPersons.xml"))
-            //{
-            //    listOfPersons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
-            //}
-            //else
-            //{
-            //    listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-            //    listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-            //    listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-            //}
+            InitializeComponent();
+            if (File.Exists("D://listOfPersons.xml"))
+            {
+                listOfPersons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
+            }
+            else
+            {
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
+            }
             PersonDataGrid.ItemsSource = listOfPersons;
         }
 
@@ -57,7 +56,8 @@ namespace List3
                     PersonDataGrid.Items.Refresh();
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Please choose person to view details");
                 return;
             }

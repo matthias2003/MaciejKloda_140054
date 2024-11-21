@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Closing="Window_Closing"
         Title="ShowData" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ShowDataViewModel/>
+    </Window.DataContext> 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
