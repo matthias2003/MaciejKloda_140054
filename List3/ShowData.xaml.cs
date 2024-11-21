@@ -15,9 +15,9 @@ namespace List3
         public ShowData()
         {
             InitializeComponent();
-            if (File.Exists("C://Users//Maciek//Desktop//listOfPersons.xml"))
+            if (File.Exists("D://listOfPersons.xml"))
             {
-                listOfPersons = Serialization.DeserializeToObject<List<Person>>("C://Users//Maciek//Desktop//listOfPersons.xml");
+                listOfPersons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
             }
             else
             {
@@ -80,7 +80,7 @@ namespace List3
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Serialization.SerializeToXml<List<Person>>(listOfPersons, "C://Users//Maciek//Desktop//listOfPersons.xml");
+            Serialization.SerializeToXml<List<Person>>(listOfPersons, "D://listOfPersons.xml");
         }
     }
 }
