@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using List3.ViewModels;
 
 namespace List3
 {
@@ -23,26 +24,14 @@ namespace List3
         public PersonWindow()
         {
             InitializeComponent();
+            this.DataContext = new PersonWindowViewModel();
         }
 
         public PersonWindow(string title)
         {
             InitializeComponent();
             TextBlockTitle.Text = title;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = sender as Button;
-
-            if (btn.Content.ToString() == "Save")
-            {
-                IsOkPressed = true;
-            } else if (btn.Content.ToString() == "Cancel")
-            {
-                IsOkPressed = false;
-            }
-            this.DialogResult = true;
+            this.DataContext = new PersonWindowViewModel();
         }
     }
 }

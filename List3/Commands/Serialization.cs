@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Lista3
+namespace List3
 {
     public class Serialization
     {

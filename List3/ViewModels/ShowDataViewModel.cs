@@ -1,86 +1,116 @@
 ﻿using List3;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using List3.Commands;
+
 
 namespace List3.ViewModels
 {
-    public class ShowDataViewModel
+    public class ShowDataViewModel : INotifyPropertyChanged
     {
-        public List<Person> listOfPersons = new List<Person>();
+        public ObservableCollection<Person> Persons { get; set; } = new ObservableCollection<Person>();
+
+        private Person _selectedPerson;
+
+        public Person SelectedPerson
+        {
+            get => _selectedPerson;
+            set
+            {
+                _selectedPerson = value;
+                OnPropertyChanged(nameof(SelectedPerson));
+            }
+        }
+
+        public ICommand AddPersonCommand { get; }
+        public ICommand DeletePersonCommand { get; }
+        public ICommand EditPersonCommand { get; }
+
+
         public ShowDataViewModel()
         {
-            InitializeComponent();
             if (File.Exists("D://listOfPersons.xml"))
             {
-                listOfPersons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
-            }
-            else
-            {
-                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-                listOfPersons.Add(new Person("aaaa", "bbbb", "1231232"));
-            }
-            PersonDataGrid.ItemsSource = listOfPersons;
-        }
-
-        private void Button_Click_AddPerson(object sender, RoutedEventArgs e)
-        {
-            PersonWindow addPerson = new PersonWindow("Add new person");
-            Person newPerson = new Person();
-            addPerson.DataContext = newPerson;
-            addPerson.ShowDialog();
-            if (addPerson.IsOkPressed)
-            {
-                listOfPersons.Add(newPerson);
-                PersonDataGrid.Items.Refresh();
-            }
-        }
-
-        private void Button_Click_Properties(object sender, RoutedEventArgs e)
-        {
-            if (PersonDataGrid.SelectedItem != null)
-            {
-                PersonWindow personPropertiesWindow = new PersonWindow("Show properties of person");
-                Person propertiesPerson = new Person((Person)PersonDataGrid.SelectedItem);
-                personPropertiesWindow.DataContext = propertiesPerson;
-                personPropertiesWindow.ShowDialog();
-
-                if (personPropertiesWindow.IsOkPressed)
+                var persons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
+                foreach (var person in persons)
                 {
-                    int index = listOfPersons.IndexOf((Person)PersonDataGrid.SelectedItem);
-                    listOfPersons[index] = propertiesPerson;
-                    PersonDataGrid.Items.Refresh();
+                    Persons.Add(person);
                 }
             }
             else
             {
-                MessageBox.Show("Please choose person to view details");
-                return;
+                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
+                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
+                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
+            }
+
+            AddPersonCommand = new RelayCommand(AddPerson);
+            DeletePersonCommand = new RelayCommand(DeletePerson, CanModifyPerson);
+            EditPersonCommand = new RelayCommand(EditPerson, CanModifyPerson);
+        }
+
+        private void AddPerson()
+        {
+            var newPerson = new Person();
+            var addPersonWindow = new PersonWindow("Add new person");
+            addPersonWindow.DataContext = newPerson;
+
+            if (addPersonWindow.ShowDialog() == true)
+            {
+                Persons.Add(newPerson);
             }
         }
 
+        private void EditPerson()
+        {
+            if (SelectedPerson != null)
+            {
+                var editedPerson = new Person
+                {
+                    FirstName = SelectedPerson.FirstName,
+                    LastName = SelectedPerson.LastName,
+                    PersonalNumber = SelectedPerson.PersonalNumber
+                };
 
-        private void Button_Click_Delete(object sender, RoutedEventArgs e)
-        {
-            if (PersonDataGrid.SelectedItem != null)
-            {
-                Person selectedPerson = (Person)PersonDataGrid.SelectedItem;
-                listOfPersons.Remove(selectedPerson);
-                PersonDataGrid.Items.Refresh();
-            }
-            else
-            {
-                MessageBox.Show("Please choose person to delete");
-                return;
+                var editPersonWindow = new PersonWindow("Edit person");
+                editPersonWindow.DataContext = editedPerson;
+
+                if (editPersonWindow.ShowDialog() == true)
+                {
+                    SelectedPerson.FirstName = editedPerson.FirstName;
+                    SelectedPerson.LastName = editedPerson.LastName;
+                    SelectedPerson.PersonalNumber = editedPerson.PersonalNumber;
+                }
             }
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+
+        private void DeletePerson()
         {
-            Serialization.SerializeToXml<List<Person>>(listOfPersons, "D://listOfPersons.xml");
+            if (SelectedPerson != null)
+            {
+                Persons.Remove(SelectedPerson);
+            }
         }
+
+        private bool CanModifyPerson()
+        {
+            return SelectedPerson != null;
+        }
+        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

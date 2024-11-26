@@ -55,16 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\PersonWindowViewModel.cs" />
     <Compile Include="ViewModels\ShowDataViewModel.cs" />
-    <Page Include="PersonWindow.xaml">
+    <Page Include="Views\PersonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShowData.xaml">
+    <Page Include="Views\ShowData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="PersonWindow.xaml.cs">
+    <Compile Include="Views\PersonWindow.xaml.cs">
       <DependentUpon>PersonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -72,8 +74,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Serialization.cs" />
-    <Compile Include="ShowData.xaml.cs">
+    <Compile Include="Commands\Serialization.cs" />
+    <Compile Include="Views\ShowData.xaml.cs">
       <DependentUpon>ShowData.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -104,8 +106,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
