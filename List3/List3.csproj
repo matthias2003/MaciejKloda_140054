@@ -56,6 +56,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\Database.cs" />
+    <Compile Include="System\Configuration\ConfigurationManager.cs" />
     <Compile Include="ViewModels\CarWindowViewModel.cs" />
     <Compile Include="ViewModels\ShowDataViewModel.cs" />
     <Page Include="Views\PersonWindow.xaml">
