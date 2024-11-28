@@ -10,17 +10,17 @@ namespace List3.ViewModels
 {
     public class ShowDataViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Person> Persons { get; set; } = new ObservableCollection<Person>();
+        public ObservableCollection<Car> Cars { get; set; } = new ObservableCollection<Car>();
 
-        private Person _selectedPerson;
+        private Car _selectedCar;
 
-        public Person SelectedPerson
+        public Car SelectedCar
         {
-            get => _selectedPerson;
+            get => _selectedCar;
             set
             {
-                _selectedPerson = value;
-                OnPropertyChanged(nameof(SelectedPerson));
+                _selectedCar = value;
+                OnPropertyChanged("SelectedCar");
             }
         }
 
@@ -31,76 +31,76 @@ namespace List3.ViewModels
 
         public ShowDataViewModel()
         {
-            if (File.Exists("D://listOfPersons.xml"))
+            if (File.Exists("D://listOfCars.xml"))
             {
-                var persons = Serialization.DeserializeToObject<List<Person>>("D://listOfPersons.xml");
+                var persons = Serialization.DeserializeToObject<List<Car>>("D://listOfCars.xml");
                 foreach (var person in persons)
                 {
-                    Persons.Add(person);
+                    Cars.Add(person);
                 }
             }
             else
             {
-                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
-                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
-                Persons.Add(new Person("aaaa", "bbbb", "1231232"));
+                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
+                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
+                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
             }
 
-            AddPersonCommand = new RelayCommand(AddPerson);
-            DeletePersonCommand = new RelayCommand(DeletePerson, CanModifyPerson);
-            EditPersonCommand = new RelayCommand(EditPerson, CanModifyPerson);
+            AddPersonCommand = new RelayCommand(AddCar);
+            DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
+            EditPersonCommand = new RelayCommand(EditCar, CanModifyCar);
         }
 
-        private void AddPerson()
+        private void AddCar()
         {
-            Person newPerson = new Person();
-            PersonWindow addPersonWindow = new PersonWindow("Add new person");
-            PersonWindowViewModel viewModel = (PersonWindowViewModel)addPersonWindow.DataContext;
-            addPersonWindow.ShowDialog();
+            Car newCar = new Car();
+            CarWindow addCarnWindow = new CarWindow("Add new car");
+            CarWindowViewModel viewModel = (CarWindowViewModel)addCarnWindow.DataContext;
+            addCarnWindow.ShowDialog();
 
             if (viewModel.IsOkPressed)
-            { 
-                newPerson.FirstName = viewModel.FirstName;
-                newPerson.LastName = viewModel.LastName;
-                newPerson.PersonalNumber = viewModel.PersonalNumber;
+            {
+                newCar.Brand = viewModel.Brand;
+                newCar.Model = viewModel.Model;
+                newCar.VinNumber = viewModel.VinNumber;
 
-                Persons.Add(newPerson);
+                Cars.Add(newCar);
             }
         }
 
-        private void EditPerson()
+        private void EditCar()
         {
-            if (SelectedPerson != null)
+            if (SelectedCar != null)
             {
-                var editPersonWindow = new PersonWindow("Edit person");
-                PersonWindowViewModel viewModel = (PersonWindowViewModel)editPersonWindow.DataContext;
+                var editPersonWindow = new CarWindow("Edit car");
+                CarWindowViewModel viewModel = (CarWindowViewModel)editPersonWindow.DataContext;
 
-                viewModel.FirstName = SelectedPerson.FirstName;
-                viewModel.LastName = SelectedPerson.LastName;
-                viewModel.PersonalNumber = SelectedPerson.PersonalNumber;
+                viewModel.Brand = SelectedCar.Brand;
+                viewModel.Model = SelectedCar.Model;
+                viewModel.VinNumber = SelectedCar.VinNumber;
 
                 editPersonWindow.ShowDialog();
 
                 if (viewModel.IsOkPressed)
                 {
-                    SelectedPerson.FirstName = viewModel.FirstName;
-                    SelectedPerson.LastName = viewModel.LastName;
-                    SelectedPerson.PersonalNumber = viewModel.PersonalNumber;
+                    SelectedCar.Brand = viewModel.Brand;
+                    SelectedCar.Model = viewModel.Model;
+                    SelectedCar.VinNumber = viewModel.VinNumber;
                 }
             }
         }
 
-        private void DeletePerson()
+        private void DeleteCar()
         {
-            if (SelectedPerson != null)
+            if (SelectedCar != null)
             {
-                Persons.Remove(SelectedPerson);
+                Cars.Remove(SelectedCar);
             }
         }
 
-        private bool CanModifyPerson()
+        private bool CanModifyCar()
         {
-            return SelectedPerson != null;
+            return SelectedCar != null;
         }
         
 

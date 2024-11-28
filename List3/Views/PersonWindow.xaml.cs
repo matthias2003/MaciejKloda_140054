@@ -6,31 +6,34 @@ namespace List3
     /// <summary>
     /// Interaction logic for AddPerson.xaml
     /// </summary>
-    public partial class PersonWindow : Window
+    public partial class CarWindow : Window
     {
-        public PersonWindow()
+        public CarWindow()
         {
             InitializeComponent();
         }
 
-        public PersonWindow(string title)
+        public CarWindow(string title)
         {
             InitializeComponent();
-            PersonWindowViewModel viewModel = new PersonWindowViewModel();
+            CarWindowViewModel viewModel = new CarWindowViewModel();
             this.DataContext = viewModel;
             TextBlockTitle.Text = title;
 
             viewModel.PropertyChanged += (sender, e) =>
             {
-                if (viewModel.IsOkPressed)
+                if (e.PropertyName == nameof(viewModel.IsOkPressed))
                 {
-                    this.DialogResult = true; 
-                    this.Close(); 
-                }
-                else if (!viewModel.IsOkPressed)
-                {
-                    this.DialogResult = false;
-                    this.Close();
+                    if (viewModel.IsOkPressed)
+                    {
+                        this.DialogResult = true;
+                        this.Close();
+                    }
+                    else if (!viewModel.IsOkPressed)
+                    {
+                        this.DialogResult = false;
+                        this.Close();
+                    }
                 }
             };
         }

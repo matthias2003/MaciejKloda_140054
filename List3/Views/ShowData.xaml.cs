@@ -19,7 +19,7 @@ namespace List3
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var viewModel = (ShowDataViewModel)this.DataContext;
-            Serialization.SerializeToXml(viewModel.Persons, "D://listOfPersons.xml");
+            Serialization.SerializeToXml(viewModel.Cars, "D://listOfCars.xml");
         }
     }
 }

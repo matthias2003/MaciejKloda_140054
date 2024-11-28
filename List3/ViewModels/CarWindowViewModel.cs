@@ -5,12 +5,12 @@ using System.Windows.Input;
 
 namespace List3.ViewModels
 {
-    public class PersonWindowViewModel : INotifyPropertyChanged
+    public class CarWindowViewModel : INotifyPropertyChanged
     {
         private bool _isOkPressed;
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PersonalNumber { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public string VinNumber { get; set; }
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -25,7 +25,7 @@ namespace List3.ViewModels
             }
         }
 
-        public PersonWindowViewModel()
+        public CarWindowViewModel()
         {
             SaveCommand = new RelayCommand(Save, CanSave);
             CancelCommand = new RelayCommand(Cancel);
@@ -37,7 +37,7 @@ namespace List3.ViewModels
 
         private bool CanSave()
         {
-            return !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(PersonalNumber);
+            return !string.IsNullOrEmpty(Brand) && !string.IsNullOrEmpty(Model) && !string.IsNullOrEmpty(VinNumber);
         }
 
         private void Cancel()

@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="ViewModels\PersonWindowViewModel.cs" />
+    <Compile Include="ViewModels\CarWindowViewModel.cs" />
     <Compile Include="ViewModels\ShowDataViewModel.cs" />
     <Page Include="Views\PersonWindow.xaml">
       <SubType>Designer</SubType>
@@ -73,7 +73,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Car.cs" />
     <Compile Include="Commands\Serialization.cs" />
     <Compile Include="Views\ShowData.xaml.cs">
       <DependentUpon>ShowData.xaml</DependentUpon>
