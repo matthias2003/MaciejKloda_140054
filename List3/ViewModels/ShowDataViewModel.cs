@@ -1,16 +1,10 @@
-﻿using List3;
-using System;
+﻿using List3.Commands;
+using List3.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using List3.Commands;
-
 
 namespace List3.ViewModels
 {
@@ -59,12 +53,17 @@ namespace List3.ViewModels
 
         private void AddPerson()
         {
-            var newPerson = new Person();
-            var addPersonWindow = new PersonWindow("Add new person");
-            addPersonWindow.DataContext = newPerson;
+            Person newPerson = new Person();
+            PersonWindow addPersonWindow = new PersonWindow("Add new person");
+            PersonWindowViewModel viewModel = (PersonWindowViewModel)addPersonWindow.DataContext;
+            addPersonWindow.ShowDialog();
 
-            if (addPersonWindow.ShowDialog() == true)
-            {
+            if (viewModel.IsOkPressed)
+            { 
+                newPerson.FirstName = viewModel.FirstName;
+                newPerson.LastName = viewModel.LastName;
+                newPerson.PersonalNumber = viewModel.PersonalNumber;
+
                 Persons.Add(newPerson);
             }
         }
@@ -73,21 +72,20 @@ namespace List3.ViewModels
         {
             if (SelectedPerson != null)
             {
-                var editedPerson = new Person
-                {
-                    FirstName = SelectedPerson.FirstName,
-                    LastName = SelectedPerson.LastName,
-                    PersonalNumber = SelectedPerson.PersonalNumber
-                };
-
                 var editPersonWindow = new PersonWindow("Edit person");
-                editPersonWindow.DataContext = editedPerson;
+                PersonWindowViewModel viewModel = (PersonWindowViewModel)editPersonWindow.DataContext;
 
-                if (editPersonWindow.ShowDialog() == true)
+                viewModel.FirstName = SelectedPerson.FirstName;
+                viewModel.LastName = SelectedPerson.LastName;
+                viewModel.PersonalNumber = SelectedPerson.PersonalNumber;
+
+                editPersonWindow.ShowDialog();
+
+                if (viewModel.IsOkPressed)
                 {
-                    SelectedPerson.FirstName = editedPerson.FirstName;
-                    SelectedPerson.LastName = editedPerson.LastName;
-                    SelectedPerson.PersonalNumber = editedPerson.PersonalNumber;
+                    SelectedPerson.FirstName = viewModel.FirstName;
+                    SelectedPerson.LastName = viewModel.LastName;
+                    SelectedPerson.PersonalNumber = viewModel.PersonalNumber;
                 }
             }
         }

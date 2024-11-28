@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using List3.Commands;
+﻿using List3.Commands;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace List3.ViewModels
 {
-    public class PersonWindowViewModel
+    public class PersonWindowViewModel : INotifyPropertyChanged
     {
+        private bool _isOkPressed;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PersonalNumber { get; set; }
@@ -17,7 +15,15 @@ namespace List3.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public bool IsOkPressed { get; private set; } = false;
+        public bool IsOkPressed
+        {
+            get => _isOkPressed;
+            private set
+            {
+                _isOkPressed = value;
+                OnPropertyChanged("IsOkPressed");
+            }
+        }
 
         public PersonWindowViewModel()
         {
@@ -37,6 +43,12 @@ namespace List3.ViewModels
         private void Cancel()
         {
             IsOkPressed = false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

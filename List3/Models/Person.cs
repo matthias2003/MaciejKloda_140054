@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace List3
+namespace List3.Models
 {
     [XmlRoot(ElementName = "Persons")]
     public class Person : INotifyPropertyChanged
@@ -15,8 +10,6 @@ namespace List3
         private string _lastName;
         private string _personalNumber;
 
-       
-
         [XmlAttribute("FirstName")]
         public string FirstName
         {
@@ -24,9 +17,8 @@ namespace List3
             set 
             { 
                 _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged("FirstName");
             }
-
         }
 
         [XmlAttribute("LastName")]
@@ -36,7 +28,7 @@ namespace List3
             set 
             {
                 _lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged("LastName");
             }
         }
 
@@ -47,7 +39,7 @@ namespace List3
             set 
             { 
                 _personalNumber = value;
-                OnPropertyChanged(nameof(PersonalNumber));
+                OnPropertyChanged("PersonalNumber");
             }
         }
         public Person()
