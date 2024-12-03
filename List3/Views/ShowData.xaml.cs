@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using List3.Commands;
 using List3.ViewModels;
 
 namespace List3
@@ -15,6 +16,8 @@ namespace List3
         {
             InitializeComponent();
             this.DataContext = new ShowDataViewModel();
+            var db = new Database();
+            db.ConnectToDatabase();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

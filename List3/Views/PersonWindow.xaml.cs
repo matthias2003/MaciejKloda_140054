@@ -1,4 +1,5 @@
-﻿using List3.ViewModels;
+﻿using List3.Commands;
+using List3.ViewModels;
 using System.Windows;
 
 namespace List3
@@ -19,7 +20,6 @@ namespace List3
             CarWindowViewModel viewModel = new CarWindowViewModel();
             this.DataContext = viewModel;
             TextBlockTitle.Text = title;
-
             viewModel.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == nameof(viewModel.IsOkPressed))
