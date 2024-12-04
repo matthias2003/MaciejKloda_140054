@@ -16,8 +16,6 @@ namespace List3
         {
             InitializeComponent();
             this.DataContext = new ShowDataViewModel();
-            var db = new Database();
-            db.ConnectToDatabase();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

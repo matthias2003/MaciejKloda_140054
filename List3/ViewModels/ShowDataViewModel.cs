@@ -41,9 +41,12 @@ namespace List3.ViewModels
             }
             else
             {
-                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                Cars.Add(new Car("aaaa", "bbbb", "1231232"));
+                var db = new Database();
+                db.ConnectToDatabase();
+                Cars = db.GetData();
+                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
+                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
+                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
             }
 
             AddPersonCommand = new RelayCommand(AddCar);
