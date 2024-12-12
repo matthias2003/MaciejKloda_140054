@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarRentalAPI.Repository;
+using CarRentalAPI.Entities;
 
 namespace CarRentalAPI.Controllers
 {
@@ -31,6 +32,47 @@ namespace CarRentalAPI.Controllers
                 return NotFound();
             }
             return Ok(car);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCar([FromBody] Car car)
+        {
+            if (car == null)
+            {
+                return BadRequest();
+            }
+
+            var createdCar = await _carRepository.CreateCarAsync(car);
+            return CreatedAtAction(nameof(GetCarById), new { id = createdCar.Id }, createdCar);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCar(int id, [FromBody] Car car)
+        {
+            if (car == null || car.Id != id)
+            {
+                return BadRequest();
+            }
+
+            var updatedCar = await _carRepository.UpdateCarAsync(id, car);
+            if (updatedCar == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedCar);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCar(int id)
+        {
+            var success = await _carRepository.DeleteCarAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }
