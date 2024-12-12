@@ -1,6 +1,7 @@
 ﻿using CarRentalAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CarRentalAPI.Repository;
 
 namespace CarRentalAPI.Controllers
 {
@@ -8,17 +9,28 @@ namespace CarRentalAPI.Controllers
     [Route("api/[controller]")]
     public class CarsController : ControllerBase
     {
-        private readonly DataContext _dataContext;
-        public CarsController(DataContext context)
+        private readonly ICarRepository _carRepository;
+        public CarsController(ICarRepository carRepository)
         {
-            _dataContext = context;
+            _carRepository = carRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCars()
         {
-            var cars = await _dataContext.Car.ToListAsync();
+            var cars = await _carRepository.GetAllCarsAsync();
             return Ok(cars);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCarById(int id)
+        {
+            var car = await _carRepository.GetCarByIdAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+            return Ok(car);
         }
     }
 }
