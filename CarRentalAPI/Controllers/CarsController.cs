@@ -42,6 +42,8 @@ namespace CarRentalAPI.Controllers
                 return BadRequest();
             }
 
+            car.Id = 0;
+
             var createdCar = await _carRepository.CreateCarAsync(car);
             return CreatedAtAction(nameof(GetCarById), new { id = createdCar.Id }, createdCar);
         }
@@ -49,12 +51,13 @@ namespace CarRentalAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCar(int id, [FromBody] Car car)
         {
-            if (car == null || car.Id != id)
+            if (car == null)
             {
                 return BadRequest();
             }
 
             var updatedCar = await _carRepository.UpdateCarAsync(id, car);
+
             if (updatedCar == null)
             {
                 return NotFound();

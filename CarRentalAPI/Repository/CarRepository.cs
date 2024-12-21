@@ -32,14 +32,27 @@ namespace CarRentalAPI.Repository
         public async Task<Car> UpdateCarAsync(int id, Car car)
         {
             var existingCar = await _dataContext.Car.FirstOrDefaultAsync(c => c.Id == id);
+            
             if (existingCar == null)
             {
                 return null;
             }
 
-            existingCar.Brand = car.Brand;
-            existingCar.Model = car.Model;
-            existingCar.VinNumber = car.VinNumber;
+            if (!string.IsNullOrEmpty(car.Brand))
+            {
+                existingCar.Brand = car.Brand;
+            }
+
+            if (!string.IsNullOrEmpty(car.Model))
+            {
+                existingCar.Model = car.Model;
+            }
+
+            if (!string.IsNullOrEmpty(car.VinNumber))
+            {
+                existingCar.VinNumber = car.VinNumber;
+            }
+
 
             await _dataContext.SaveChangesAsync();
             return existingCar;
