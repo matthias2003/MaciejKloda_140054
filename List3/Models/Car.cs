@@ -1,16 +1,30 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Text.Json.Serialization;
 
 namespace List3.Models
 {
     [XmlRoot(ElementName = "Cars")]
     public class Car : INotifyPropertyChanged
     {
+        private int _id;
         private string _brand;
         private string _model;
         private string _vinNumber;
 
-        [XmlAttribute("Brand")]
+
+        [JsonPropertyName("id")]
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        [JsonPropertyName("brand")]
         public string Brand
         {
             get { return _brand; }
@@ -21,7 +35,7 @@ namespace List3.Models
             }
         }
 
-        [XmlAttribute("Model")]
+        [JsonPropertyName("model")]
         public string Model
         {
             get { return _model; }
@@ -32,7 +46,7 @@ namespace List3.Models
             }
         }
 
-        [XmlAttribute("VinNumber")]
+        [JsonPropertyName("vinNumber")]
         public string VinNumber
         {
             get { return _vinNumber; }

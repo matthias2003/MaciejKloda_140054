@@ -1,9 +1,14 @@
 ﻿using List3.Commands;
 using List3.Models;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
+using System.Threading;
 using System.Windows.Input;
 
 namespace List3.ViewModels
@@ -31,23 +36,7 @@ namespace List3.ViewModels
 
         public ShowDataViewModel()
         {
-            if (File.Exists("D://listOfCars.xml"))
-            {
-                var persons = Serialization.DeserializeToObject<List<Car>>("D://listOfCars.xml");
-                foreach (var person in persons)
-                {
-                    Cars.Add(person);
-                }
-            }
-            else
-            {
-                var db = new Database();
-                db.ConnectToDatabase();
-                Cars = db.GetData();
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-            }
+            Cars = Database.GetData();
 
             AddPersonCommand = new RelayCommand(AddCar);
             DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
@@ -63,11 +52,13 @@ namespace List3.ViewModels
 
             if (viewModel.IsOkPressed)
             {
+                newCar.Id = 0;
                 newCar.Brand = viewModel.Brand;
                 newCar.Model = viewModel.Model;
                 newCar.VinNumber = viewModel.VinNumber;
 
-                Cars.Add(newCar);
+                Database.AddCarToDatabase(newCar);
+                RefetchData();
             }
         }
 
@@ -77,7 +68,7 @@ namespace List3.ViewModels
             {
                 var editPersonWindow = new CarWindow("Edit car");
                 CarWindowViewModel viewModel = (CarWindowViewModel)editPersonWindow.DataContext;
-
+               
                 viewModel.Brand = SelectedCar.Brand;
                 viewModel.Model = SelectedCar.Model;
                 viewModel.VinNumber = SelectedCar.VinNumber;
@@ -89,6 +80,9 @@ namespace List3.ViewModels
                     SelectedCar.Brand = viewModel.Brand;
                     SelectedCar.Model = viewModel.Model;
                     SelectedCar.VinNumber = viewModel.VinNumber;
+
+                    Database.EditCar(SelectedCar);
+                    RefetchData();
                 }
             }
         }
@@ -97,7 +91,8 @@ namespace List3.ViewModels
         {
             if (SelectedCar != null)
             {
-                Cars.Remove(SelectedCar);
+                Database.DeleteCar(SelectedCar);
+                RefetchData();
             }
         }
 
@@ -111,6 +106,12 @@ namespace List3.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void RefetchData()
+        {
+            Cars = Database.GetData();
+            OnPropertyChanged(nameof(Cars));
         }
 
     }

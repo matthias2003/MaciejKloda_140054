@@ -1,60 +1,92 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Windows;
 using List3.Models;
+using RestSharp;
 
 namespace List3.Commands
 {
-    public class Database
+    public static class Database
     {
-        private string _connectionString;
-        private SqlConnection _conn;
+        private static RestClient client = new RestClient("https://localhost:7017");
 
-        public string query;
-        public void ConnectToDatabase()
+        public static ObservableCollection<Car> GetData()
         {
-            
-            _connectionString = "Server=tcp:server-maciejkloda.database.windows.net,1433;Initial Catalog=CarRental;Persist Security Info=False;User ID=CloudSAb8c31eed;Password=Admin123!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            try
-            {
-                _conn = new SqlConnection(_connectionString);
-                _conn.Open();
-                Debug.WriteLine("Połączono z bazą danych.");
-                //_conn.Close();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Błąd połączenia: {ex.Message}");
-            }
-        }
-
-        public ObservableCollection<Car> GetData()
-        {
-            query = "SELECT * FROM Cars";
+            var request = new RestRequest("api/Cars", Method.Get);
+            var response = client.Execute(request);
             ObservableCollection<Car> Cars = new ObservableCollection<Car>();
 
-            using (SqlCommand command = new SqlCommand(query, _conn))
+            if (response.IsSuccessful)
             {
-                using (SqlDataReader reader = command.ExecuteReader())
+                var carsList = JsonSerializer.Deserialize<List<Car>>(response.Content);
+                foreach (var car in carsList)
                 {
-                    while (reader.Read())
-                    {
-
-                        int id = (int)reader["ID"];
-                        string brand = reader["Brand"].ToString();
-                        string model = reader["Model"].ToString();
-                        string vinNumber = reader["VinNumber"].ToString();
-
-                        Cars.Add(new Car(brand, model, vinNumber));
-
-                        Debug.WriteLine($"ID: {id}, Brand: {brand}, Model: {model}, vinNumber: {vinNumber}");
-                    }
+                    Cars.Add(car);
                 }
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}");
             }
 
             return Cars;
+        }
+
+        public static void AddCarToDatabase(Car car)
+        {
+            var request = new RestRequest("api/Cars", Method.Post);
+            var json = JsonSerializer.Serialize(car);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine("Pomyślnie dodano samochód!");
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
+        }
+
+        public static void EditCar(Car car)
+        {
+            var request = new RestRequest($"api/Cars/{car.Id}", Method.Put);
+
+            var json = JsonSerializer.Serialize(car);
+
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine("Pomyślnie dodano samochód!");
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
+        }
+
+        public static void DeleteCar(Car car)
+        {
+            var request = new RestRequest($"api/Cars/{car.Id}", Method.Delete);
+
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine("Pomyślnie usunięto samochód!");
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
         }
     }
 }
