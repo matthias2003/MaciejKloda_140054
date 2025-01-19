@@ -94,8 +94,21 @@
     <Compile Include="Commands\Database.cs" />
     <Compile Include="System\Configuration\ConfigurationManager.cs" />
     <Compile Include="ViewModels\CarWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ShowDataViewModel.cs" />
-    <Page Include="Views\PersonWindow.xaml">
+    <Page Include="Views\CarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageRentals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RentCarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,8 +116,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Views\PersonWindow.xaml.cs">
-      <DependentUpon>PersonWindow.xaml</DependentUpon>
+    <Compile Include="Views\CarWindow.xaml.cs">
+      <DependentUpon>CarWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -112,6 +125,15 @@
     </Compile>
     <Compile Include="Models\Car.cs" />
     <Compile Include="Commands\Serialization.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageRentals.xaml.cs">
+      <DependentUpon>ManageRentals.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RentCarWindow.xaml.cs">
+      <DependentUpon>RentCarWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShowData.xaml.cs">
       <DependentUpon>ShowData.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -143,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\carRentalLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

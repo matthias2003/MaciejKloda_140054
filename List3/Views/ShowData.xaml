@@ -3,28 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:List3"
-        xmlns:vm="clr-namespace:List3.ViewModels"
         mc:Ignorable="d"
         Closing="Window_Closing"
         Title="ShowData" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#2A9D8F"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-        <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar}" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" Margin="10" Grid.Row="0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Brand}" Header="Brand" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Model}" Header="Model" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding VinNumber}" Header="Vin number" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="1">
-            <Button Content="Add" Width="100" Padding="5" Margin="10" Command="{Binding AddPersonCommand}"/>
-            <Button Content="Properties" Padding="5" Margin="10" Width="100" Command="{Binding EditPersonCommand}"/>
-            <Button Content="Delete" Padding="5" Margin="10" Width="100" Command="{Binding DeletePersonCommand}"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar}" 
+                  Margin="10" Grid.Row="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Brand}" Header="Brand" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Model}" Header="Model" Width="*"/>
+                <DataGridTextColumn Binding="{Binding VinNumber}" Header="Vin number" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="1">
+            <Button Content="Add" Command="{Binding AddPersonCommand}"/>
+            <Button Content="Properties" Command="{Binding EditPersonCommand}"/>
+            <Button Content="Delete" Command="{Binding DeletePersonCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
