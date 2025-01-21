@@ -15,8 +15,8 @@ namespace CarRentalAPI.Repository
         public async Task<IEnumerable<Car>> GetAllCarsAsync()
         {
             return await _dataContext.Car.ToListAsync();
-        } 
-        
+        }
+
         public async Task<Car> GetCarByIdAsync(int id)
         {
             return await _dataContext.Car.FirstOrDefaultAsync(c => c.Id == id);

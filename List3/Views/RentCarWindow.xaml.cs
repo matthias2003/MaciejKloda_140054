@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using List3.Commands;
+using List3.ViewModels;
 
 namespace List3
 {
@@ -11,6 +13,9 @@ namespace List3
         public RentCarWindow()
         {
             InitializeComponent();
+            this.DataContext = new RentCarViewModel();
+
+            
         }
     }
 }
