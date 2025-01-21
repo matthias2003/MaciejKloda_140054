@@ -3,10 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:List3"
         mc:Ignorable="d"
-        Title="ManageRentals" Height="450" Width="800">
+        Title="Manage Rentals" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#2A9D8F"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Manage Current Car Rentals" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="0"/>
+
+        <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar}" 
+                  Margin="10" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Brand}" Header="Brand" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Model}" Header="Model" Width="*"/>
+                <DataGridTextColumn Binding="{Binding VinNumber}" Header="Vin number" Width="*"/>
+                <DataGridTextColumn Binding="{Binding RentalStartDate}" Header="Start Date" Width="*"/>
+                <DataGridTextColumn Binding="{Binding RentalEndDate}" Header="End Date" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
+            <Button Content="Extend Rental" Command="{Binding ExtendRentalCommand}" CommandParameter="{Binding SelectedCar}"/>
+            <Button Content="Delete Rental" Command="{Binding DeleteRentalCommand}" CommandParameter="{Binding SelectedCar}"/>
+        </StackPanel>
     </Grid>
 </Window>
