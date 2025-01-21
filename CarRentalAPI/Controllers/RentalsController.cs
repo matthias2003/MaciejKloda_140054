@@ -59,5 +59,45 @@ namespace CarRentalAPI.Controllers
             // Zwracamy odpowiedź z nowym wypożyczeniem
             return CreatedAtAction(nameof(GetRentals), new { id = newRental.Id }, newRental);
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteRental(int id)
+        {
+            var rental = await _dataContext.Rentals.FindAsync(id);
+
+            if (rental == null)
+            {
+                return NotFound($"Rental with ID {id} not found.");
+            }
+
+            _dataContext.Rentals.Remove(rental);
+            await _dataContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Rental>> UpdateRentalEndDate(int id, [FromBody] DateTime newEndDate)
+        {
+            var rental = await _dataContext.Rentals.FindAsync(id);
+
+            if (rental == null)
+            {
+                return NotFound($"Rental with ID {id} not found.");
+            }
+
+            if (newEndDate <= rental.RentalStartDate)
+            {
+                return BadRequest("Rental end date must be after the start date.");
+            }
+
+            rental.RentalEndDate = newEndDate;
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(rental);
+        }
+
     }
 }
