@@ -10,5 +10,6 @@ namespace CarRentalAPI.Repository
         Task<Car> CreateCarAsync(Car car);
         Task<Car> UpdateCarAsync(int id, Car car);
         Task<bool> DeleteCarAsync(int id);
+        Task<IEnumerable<Car>> GetAvailableCarsAsync();
     }
 }

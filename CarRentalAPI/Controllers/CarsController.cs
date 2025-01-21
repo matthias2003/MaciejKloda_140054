@@ -77,5 +77,12 @@ namespace CarRentalAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("available")]
+        public async Task<IActionResult> GetAvailableCars()
+        {
+            var availableCars = await _carRepository.GetAvailableCarsAsync();
+            return Ok(availableCars);
+        }
     }
 }

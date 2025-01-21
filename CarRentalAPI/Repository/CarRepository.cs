@@ -71,6 +71,14 @@ namespace CarRentalAPI.Repository
             return true;
         }
 
+        public async Task<IEnumerable<Car>> GetAvailableCarsAsync()
+        {
+            var availableCars = await _dataContext.Car
+                .Where(car => !_dataContext.Rentals
+                .Any(rental => rental.CarId == car.Id))
+                .ToListAsync();
 
+            return availableCars;
+        }
     }
 }
