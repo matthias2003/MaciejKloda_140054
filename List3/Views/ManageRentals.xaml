@@ -45,21 +45,20 @@
 
         <Label Content="Manage Current Car Rentals" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="0"/>
 
-        <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar}" 
+        <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Rentals}" SelectedItem="{Binding SelectedCar}" 
                   Margin="10" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Brand}" Header="Brand" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Model}" Header="Model" Width="*"/>
-                <DataGridTextColumn Binding="{Binding VinNumber}" Header="Vin number" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Car.Brand}" Header="Brand" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Car.Model}" Header="Model" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CustomerName}" Header="Start Date" Width="*"/>
                 <DataGridTextColumn Binding="{Binding RentalStartDate}" Header="Start Date" Width="*"/>
                 <DataGridTextColumn Binding="{Binding RentalEndDate}" Header="End Date" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
-            <Button Content="Extend Rental" Command="{Binding ExtendRentalCommand}" CommandParameter="{Binding SelectedCar}"/>
-            <Button Content="Delete Rental" Command="{Binding DeleteRentalCommand}" CommandParameter="{Binding SelectedCar}"/>
+            <Button Content="Extend Rental" Command="{Binding ExtendRentalCommand}"/>
+            <Button Content="Delete Rental" Command="{Binding DeleteRentalCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -98,10 +98,16 @@
     <Compile Include="Models\Rental.cs" />
     <Compile Include="System\Configuration\ConfigurationManager.cs" />
     <Compile Include="ViewModels\CarWindowViewModel.cs" />
+    <Compile Include="ViewModels\ExtendRentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ManageRentalsViewModel.cs" />
     <Compile Include="ViewModels\RentCarViewModel.cs" />
     <Compile Include="ViewModels\ShowDataViewModel.cs" />
     <Page Include="Views\CarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExtendRentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,6 +136,9 @@
     </Compile>
     <Compile Include="Models\Car.cs" />
     <Compile Include="Commands\Serialization.cs" />
+    <Compile Include="Views\ExtendRentWindow.xaml.cs">
+      <DependentUpon>ExtendRentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

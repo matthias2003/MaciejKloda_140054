@@ -72,7 +72,8 @@ namespace List3.Models
             }
         }
 
-        public Car Car { get; set; } = null;
+        [JsonPropertyName("car")]
+        public Car Car { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

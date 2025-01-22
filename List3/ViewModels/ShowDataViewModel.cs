@@ -32,7 +32,7 @@ namespace List3.ViewModels
         public ICommand AddPersonCommand { get; }
         public ICommand DeletePersonCommand { get; }
         public ICommand EditPersonCommand { get; }
-
+        
 
         public ShowDataViewModel()
         {
@@ -42,6 +42,8 @@ namespace List3.ViewModels
             DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
             EditPersonCommand = new RelayCommand(EditCar, CanModifyCar);
         }
+
+
 
         private void AddCar()
         {

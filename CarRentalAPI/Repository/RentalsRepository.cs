@@ -71,8 +71,7 @@ namespace CarRentalAPI.Repository
 
         public async Task<bool> DeleteRentalAsync(int id)
         {
-            var rental = await _context.Rentals.FindAsync(id);
-
+            var rental = await _context.Rentals.FirstOrDefaultAsync(c => c.Id == id);
             if (rental == null)
             {
                 return false;

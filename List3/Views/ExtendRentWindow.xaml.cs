@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using List3.ViewModels;
+using Lista3.ViewModels;
 
 namespace List3
 {
     /// <summary>
-    /// Logika interakcji dla klasy ManageRentals.xaml
+    /// Interaction logic for ExtendRentWindow.xaml
     /// </summary>
-    public partial class ManageRentals : Window
+    public partial class ExtendRentWindow : Window
     {
-        public ManageRentals()
+        public ExtendRentWindow()
         {
             InitializeComponent();
-            this.DataContext = new ManageRentalsViewModel();
+            this.DataContext = new ExtendRentViewModel();
         }
     }
 }

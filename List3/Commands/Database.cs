@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using System.Windows;
 using List3.Models;
 using RestSharp;
@@ -119,6 +120,71 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
+                return true;
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                return false;
+            }
+        }
+
+        public static ObservableCollection<Rental> GetRentals()
+        {
+            var request = new RestRequest("api/Rentals", Method.Get);
+            var response = client.Execute(request);
+            ObservableCollection<Rental> rentals = new ObservableCollection<Rental>();
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine($"Response Content: {response.Content}");
+                var rentalsList = JsonSerializer.Deserialize<List<Rental>>(response.Content,
+                   new JsonSerializerOptions
+                   {
+                       PropertyNameCaseInsensitive = true
+                   });
+
+                foreach (var rental in rentalsList)
+                {
+                    rentals.Add(rental);
+                }
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
+
+            return rentals;
+        }
+
+        public static void DeleteRental(Rental rental)
+        {
+            var request = new RestRequest($"api/Rentals/{rental.Id}", Method.Delete);
+
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine("Pomyślnie usunięto rental!");
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
+        }
+
+        public static bool UpdateRentalEndDate(int rentalId, DateTime newEndDate)
+        {
+            var request = new RestRequest($"api/Rentals/{rentalId}/end-date", Method.Put);
+
+            var json = JsonSerializer.Serialize(newEndDate);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                Debug.WriteLine("Pomyślnie zaktualizowano datę zakończenia wynajmu.");
                 return true;
             }
             else
