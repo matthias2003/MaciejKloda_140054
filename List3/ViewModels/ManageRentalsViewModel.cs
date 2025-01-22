@@ -57,8 +57,11 @@ namespace List3.ViewModels
 
             if (viewModel.IsOkPressed)
             {
-                Database.UpdateRentalEndDate(SelectedCar.Id,viewModel.ExtendedEndDate);
-                RefetchData();
+                if (SelectedCar != null)
+                {
+                    Database.UpdateRentalEndDate(SelectedCar.Id, viewModel.ExtendedEndDate);
+                    RefetchData();
+                } 
             }
         }
 

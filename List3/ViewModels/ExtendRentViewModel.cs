@@ -39,17 +39,12 @@ namespace Lista3.ViewModels
 
         public ExtendRentViewModel()
         {
-            SaveCommand = new RelayCommand(Save, CanSave);
+            SaveCommand = new RelayCommand(Save);
             CancelCommand = new RelayCommand(Cancel);
         }
         private void Save()
         {
             IsOkPressed = true;
-        }
-
-        private bool CanSave()
-        {
-            return ExtendedEndDate != DateTime.MinValue;
         }
 
         private void Cancel()

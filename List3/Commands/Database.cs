@@ -175,7 +175,7 @@ namespace List3.Commands
 
         public static bool UpdateRentalEndDate(int rentalId, DateTime newEndDate)
         {
-            var request = new RestRequest($"api/Rentals/{rentalId}/end-date", Method.Put);
+            var request = new RestRequest($"api/Rentals/{rentalId}", Method.Put);
 
             var json = JsonSerializer.Serialize(newEndDate);
             request.AddParameter("application/json", json, ParameterType.RequestBody);

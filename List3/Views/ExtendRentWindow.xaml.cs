@@ -24,7 +24,25 @@ namespace List3
         public ExtendRentWindow()
         {
             InitializeComponent();
-            this.DataContext = new ExtendRentViewModel();
+            var viewModel = new ExtendRentViewModel();
+            this.DataContext = viewModel;
+
+            viewModel.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(viewModel.IsOkPressed))
+                {
+                    if (viewModel.IsOkPressed)
+                    {
+                        this.DialogResult = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        this.DialogResult = false;
+                        this.Close();
+                    }
+                }
+            };
         }
     }
 }

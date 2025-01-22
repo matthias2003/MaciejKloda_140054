@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="ExtendRentWindow" MinHeight="275" Width="400" Height="275">
+        Title="ExtendRentWindow" MinHeight="300" Width="400" Height="275">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
@@ -51,7 +51,7 @@
 
             <Label Content="New end date:" Grid.Row="0" Margin="0,15,0,5"/>
             <Border Grid.Row="1" CornerRadius="5" BorderBrush="#D1D1D1" BorderThickness="1" Padding="2" Height="50">
-                <DatePicker SelectedDate="{Binding ExtendedEndDate, Mode=TwoWay}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch"/>
+                <DatePicker SelectedDate="{Binding ExtendedEndDate}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch"/>
             </Border>
 
             <Grid Grid.Row="2">
