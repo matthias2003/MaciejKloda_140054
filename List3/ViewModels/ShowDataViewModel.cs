@@ -1,15 +1,9 @@
-﻿using List3.Commands;
-using List3.Models;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Text.Json;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using List3.Commands;
+using List3.Models;
 
 namespace List3.ViewModels
 {
@@ -27,20 +21,26 @@ namespace List3.ViewModels
                 OnPropertyChanged("SelectedCar");
             }
         }
-
         public ICommand AddPersonCommand { get; }
         public ICommand DeletePersonCommand { get; }
         public ICommand EditPersonCommand { get; }
         
         public ShowDataViewModel()
         {
-            Cars = Database.GetData();
-
+            LoadDataAsync();
             AddPersonCommand = new RelayCommand(AddCar);
             DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
             EditPersonCommand = new RelayCommand(EditCar, CanModifyCar);
         }
-        private void AddCar()
+
+        private async Task LoadDataAsync()
+        {
+            var cars = await Database.GetData();
+            Cars = new ObservableCollection<Car>(cars);
+            OnPropertyChanged(nameof(Cars));
+        }
+
+        private async void AddCar()
         {
             Car newCar = new Car();
             CarWindow addCarnWindow = new CarWindow("Add new car");
@@ -54,12 +54,12 @@ namespace List3.ViewModels
                 newCar.Model = viewModel.Model;
                 newCar.VinNumber = viewModel.VinNumber;
 
-                Database.AddCarToDatabase(newCar);
-                RefetchData();
+                await Database.AddCarToDatabase(newCar);
+                await LoadDataAsync();
             }
         }
 
-        private void EditCar()
+        private async void EditCar()
         {
             if (SelectedCar != null)
             {
@@ -78,18 +78,18 @@ namespace List3.ViewModels
                     SelectedCar.Model = viewModel.Model;
                     SelectedCar.VinNumber = viewModel.VinNumber;
 
-                    Database.EditCar(SelectedCar);
-                    RefetchData();
+                    await Database.EditCar(SelectedCar);
+                    await LoadDataAsync();
                 }
             }
         }
 
-        private void DeleteCar()
+        private async void DeleteCar()
         {
             if (SelectedCar != null)
             {
-                Database.DeleteCar(SelectedCar);
-                RefetchData();
+                await Database.DeleteCar(SelectedCar);
+                await LoadDataAsync();
             }
         }
 
@@ -102,12 +102,6 @@ namespace List3.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void RefetchData()
-        {
-            Cars = Database.GetData();
-            OnPropertyChanged(nameof(Cars));
         }
     }
 }

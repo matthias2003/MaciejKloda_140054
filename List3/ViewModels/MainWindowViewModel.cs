@@ -20,7 +20,6 @@ namespace List3.ViewModels
             ShowData newWindow = new ShowData();
             newWindow.ShowDialog();
         }
-
         private void ShowRent()
         {
             RentCarWindow newWindow = new RentCarWindow();

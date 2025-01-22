@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using System.Windows;
 using List3.Models;
 using RestSharp;
 
@@ -16,18 +13,18 @@ namespace List3.Commands
     {
         private static RestClient client = new RestClient("https://localhost:7017");
 
-        public static ObservableCollection<Car> GetData()
+        public static async Task<ObservableCollection<Car>> GetData()
         {
             var request = new RestRequest("api/Cars", Method.Get);
-            var response = client.Execute(request);
-            ObservableCollection<Car> Cars = new ObservableCollection<Car>();
+            var response = await client.ExecuteAsync(request);
+            ObservableCollection<Car> cars = new ObservableCollection<Car>();
 
             if (response.IsSuccessful)
             {
                 var carsList = JsonSerializer.Deserialize<List<Car>>(response.Content);
                 foreach (var car in carsList)
                 {
-                    Cars.Add(car);
+                    cars.Add(car);
                 }
             }
             else
@@ -35,38 +32,38 @@ namespace List3.Commands
                 Debug.WriteLine($"Error: {response.StatusCode}");
             }
 
-            return Cars;
+            return cars;
         }
 
-        public static void AddCarToDatabase(Car car)
+        public static async Task AddCarToDatabase(Car car)
         {
             var request = new RestRequest("api/Cars", Method.Post);
             var json = JsonSerializer.Serialize(car);
             request.AddParameter("application/json", json, ParameterType.RequestBody);
-            var response = client.Execute(request);
+
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Sucessfully added");
+                Debug.WriteLine("Successfully added");
             }
             else
             {
                 Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
         }
-
-        public static void EditCar(Car car)
+       
+        public static async Task EditCar(Car car)
         {
             var request = new RestRequest($"api/Cars/{car.Id}", Method.Put);
-
             var json = JsonSerializer.Serialize(car);
-
             request.AddParameter("application/json", json, ParameterType.RequestBody);
-            var response = client.Execute(request);
+
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Sucessfully updated");
+                Debug.WriteLine("Successfully updated");
             }
             else
             {
@@ -74,15 +71,15 @@ namespace List3.Commands
             }
         }
 
-        public static void DeleteCar(Car car)
+        public static async Task DeleteCar(Car car)
         {
             var request = new RestRequest($"api/Cars/{car.Id}", Method.Delete);
 
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Sucessfully deleted");
+                Debug.WriteLine("Successfully deleted");
             }
             else
             {
@@ -90,10 +87,10 @@ namespace List3.Commands
             }
         }
 
-        public static ObservableCollection<Car> GetAvailableCars()
+        public static async Task<ObservableCollection<Car>> GetAvailableCars()
         {
             var request = new RestRequest("api/Cars/available", Method.Get);
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
             ObservableCollection<Car> availableCars = new ObservableCollection<Car>();
 
             if (response.IsSuccessful)
@@ -111,12 +108,13 @@ namespace List3.Commands
 
             return availableCars;
         }
-        public static bool AddRentalToDatabase(Rental rental)
+
+        public static async Task<bool> AddRentalToDatabase(Rental rental)
         {
             var request = new RestRequest("api/Rentals", Method.Post);
             var json = JsonSerializer.Serialize(rental);
             request.AddParameter("application/json", json, ParameterType.RequestBody);
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
@@ -129,10 +127,10 @@ namespace List3.Commands
             }
         }
 
-        public static ObservableCollection<Rental> GetRentals()
+        public static async Task<ObservableCollection<Rental>> GetRentals()
         {
             var request = new RestRequest("api/Rentals", Method.Get);
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
             ObservableCollection<Rental> rentals = new ObservableCollection<Rental>();
 
             if (response.IsSuccessful)
@@ -156,15 +154,14 @@ namespace List3.Commands
             return rentals;
         }
 
-        public static void DeleteRental(Rental rental)
+        public static async Task DeleteRental(Rental rental)
         {
             var request = new RestRequest($"api/Rentals/{rental.Id}", Method.Delete);
-
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Sucessfully deleted");
+                Debug.WriteLine("Successfully deleted");
             }
             else
             {
@@ -172,18 +169,16 @@ namespace List3.Commands
             }
         }
 
-        public static bool UpdateRentalEndDate(int rentalId, DateTime newEndDate)
+        public static async Task<bool> UpdateRentalEndDate(int rentalId, DateTime newEndDate)
         {
             var request = new RestRequest($"api/Rentals/{rentalId}", Method.Put);
-
             var json = JsonSerializer.Serialize(newEndDate);
             request.AddParameter("application/json", json, ParameterType.RequestBody);
-
-            var response = client.Execute(request);
+            var response = await client.ExecuteAsync(request);
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Sucessfully updated date");
+                Debug.WriteLine("Successfully updated date");
                 return true;
             }
             else
@@ -193,5 +188,4 @@ namespace List3.Commands
             }
         }
     }
-
 }

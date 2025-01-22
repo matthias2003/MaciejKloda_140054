@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using List3.Commands;
@@ -22,7 +23,7 @@ namespace List3.ViewModels
 
         public RentCarViewModel()
         {
-            AvailableCars = Database.GetAvailableCars();
+            LoadAvailableCarsAsync();
             SubmitCommand = new RelayCommand(Submit);
         }
 
@@ -65,8 +66,13 @@ namespace List3.ViewModels
                 OnPropertyChanged("RentalEndDate");
             }
         }
+        private async Task LoadAvailableCarsAsync()
+        {
+            AvailableCars = await Database.GetAvailableCars();
+            OnPropertyChanged(nameof(AvailableCars));
+        }
 
-        public void Submit()
+        public async void Submit()
         {
             if (SelectedCar == null || string.IsNullOrWhiteSpace(CustomerName) || RentalStartDate == null || RentalEndDate == null)
             {
@@ -83,7 +89,8 @@ namespace List3.ViewModels
                 Car = (Car)SelectedCar  
             };
 
-            bool isSuccess = Database.AddRentalToDatabase(rental);
+            bool isSuccess = await Database.AddRentalToDatabase(rental);
+
 
             if (isSuccess)
             {
@@ -94,7 +101,6 @@ namespace List3.ViewModels
                 MessageBox.Show("An error occurred while adding the rental.");
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

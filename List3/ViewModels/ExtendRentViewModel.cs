@@ -35,6 +35,7 @@ namespace Lista3.ViewModels
 
         public ExtendRentViewModel()
         {
+            ExtendedEndDate = DateTime.Today;
             SaveCommand = new RelayCommand(Save);
             CancelCommand = new RelayCommand(Cancel);
         }

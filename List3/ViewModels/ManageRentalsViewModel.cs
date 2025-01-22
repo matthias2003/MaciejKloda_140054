@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using List3.Commands;
 using List3.Models;
@@ -38,12 +39,19 @@ namespace List3.ViewModels
 
         public ManageRentalsViewModel()
         {
-            Rentals = Database.GetRentals();
+            LoadDataAsync();
             ExtendRentalCommand = new RelayCommand(ExtendRent);
             DeleteRentalCommand = new RelayCommand(DeleteRental);
         }
 
-        public void ExtendRent()
+        public async Task LoadDataAsync()
+        {
+            var rentals = await Database.GetRentals();
+            Rentals = new ObservableCollection<Rental>(rentals);
+            OnPropertyChanged(nameof(Rentals));
+        }
+
+        public async void ExtendRent()
         {
             ExtendRentWindow addCarnWindow = new ExtendRentWindow();
             ExtendRentViewModel viewModel = (ExtendRentViewModel)addCarnWindow.DataContext;
@@ -53,18 +61,18 @@ namespace List3.ViewModels
             {
                 if (SelectedCar != null)
                 {
-                    Database.UpdateRentalEndDate(SelectedCar.Id, viewModel.ExtendedEndDate);
-                    RefetchData();
+                    await Database.UpdateRentalEndDate(SelectedCar.Id, viewModel.ExtendedEndDate);
+                    await LoadDataAsync();
                 } 
             }
         }
 
-        public void DeleteRental()
+        public async void DeleteRental()
         {
             if (SelectedCar != null)
             {
-                Database.DeleteRental(SelectedCar);
-                RefetchData();
+                await Database.DeleteRental(SelectedCar);
+                await LoadDataAsync();
             }
         }
 
@@ -73,12 +81,6 @@ namespace List3.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void RefetchData()
-        {
-            Rentals = Database.GetRentals();
-            OnPropertyChanged(nameof(Rentals));
         }
     }
 }
