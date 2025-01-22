@@ -95,6 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\Database.cs" />
+    <Compile Include="Models\Rental.cs" />
     <Compile Include="System\Configuration\ConfigurationManager.cs" />
     <Compile Include="ViewModels\CarWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

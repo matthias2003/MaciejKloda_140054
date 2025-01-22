@@ -88,5 +88,45 @@ namespace List3.Commands
                 Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
             }
         }
+
+        public static ObservableCollection<Car> GetAvailableCars()
+        {
+            var request = new RestRequest("api/Cars/available", Method.Get);
+            var response = client.Execute(request);
+            ObservableCollection<Car> availableCars = new ObservableCollection<Car>();
+
+            if (response.IsSuccessful)
+            {
+                var carsList = JsonSerializer.Deserialize<List<Car>>(response.Content);
+                foreach (var car in carsList)
+                {
+                    availableCars.Add(car);
+                }
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+            }
+
+            return availableCars;
+        }
+        public static bool AddRentalToDatabase(Rental rental)
+        {
+            var request = new RestRequest("api/Rentals", Method.Post);
+            var json = JsonSerializer.Serialize(rental);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            var response = client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                return true;
+            }
+            else
+            {
+                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                return false;
+            }
+        }
     }
+
 }
