@@ -17,6 +17,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 
 var app = builder.Build();
 

@@ -10,69 +10,46 @@ namespace CarRentalAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        private readonly DataContext _dataContext;
-        public RentalsController(DataContext context)
+        private readonly IRentalRepository _rentalRepository;
+        public RentalsController(IRentalRepository rentalRepository)
         {
-            _dataContext = context;
+            _rentalRepository = rentalRepository;
         }
-      
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rental>>> GetRentals()
         {
-            var rentals = await _dataContext.Rentals
-                .Include(r => r.Car) 
-                .ToListAsync();
-
+            var rentals = await _rentalRepository.GetRentalsAsync();
             return Ok(rentals);
         }
+
         [HttpPost]
         public async Task<ActionResult<Rental>> CreateRental([FromBody] Rental rental)
         {
-            // Sprawdzamy, czy dane wypożyczenia są poprawne
-            if (rental == null || rental.CarId == 0 || string.IsNullOrEmpty(rental.CustomerName) ||
-                rental.RentalStartDate == DateTime.MinValue || rental.RentalEndDate == DateTime.MinValue)
+            try
             {
-                return BadRequest("Invalid rental data.");
+                var newRental = await _rentalRepository.CreateRentalAsync(rental);
+                return CreatedAtAction(nameof(GetRentals), new { id = newRental.Id }, newRental);
             }
-
-            // Sprawdzamy, czy samochód o podanym CarId istnieje
-            var car = await _dataContext.Car.FindAsync(rental.CarId);
-            if (car == null)
+            catch (ArgumentException ex)
             {
-                return NotFound($"Car with ID {rental.CarId} not found.");
+                return BadRequest(ex.Message);
             }
-
-            // Tworzymy nowe wypożyczenie
-            var newRental = new Rental
+            catch (KeyNotFoundException ex)
             {
-                CarId = rental.CarId, // Używamy CarId z obiektu Rental
-                CustomerName = rental.CustomerName,
-                RentalStartDate = rental.RentalStartDate,
-                RentalEndDate = rental.RentalEndDate
-                // Car nie jest przechowywane, ponieważ jest to tylko klucz obcy
-            };
-
-            // Dodajemy wypożyczenie do bazy
-            _dataContext.Rentals.Add(newRental);
-            await _dataContext.SaveChangesAsync();
-
-            // Zwracamy odpowiedź z nowym wypożyczeniem
-            return CreatedAtAction(nameof(GetRentals), new { id = newRental.Id }, newRental);
+                return NotFound(ex.Message);
+            }
         }
-
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteRental(int id)
         {
-            var rental = await _dataContext.Rentals.FindAsync(id);
+            var deleted = await _rentalRepository.DeleteRentalAsync(id);
 
-            if (rental == null)
+            if (!deleted)
             {
                 return NotFound($"Rental with ID {id} not found.");
             }
-
-            _dataContext.Rentals.Remove(rental);
-            await _dataContext.SaveChangesAsync();
 
             return NoContent();
         }
@@ -80,24 +57,19 @@ namespace CarRentalAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Rental>> UpdateRentalEndDate(int id, [FromBody] DateTime newEndDate)
         {
-            var rental = await _dataContext.Rentals.FindAsync(id);
-
-            if (rental == null)
+            try
             {
-                return NotFound($"Rental with ID {id} not found.");
+                var updatedRental = await _rentalRepository.UpdateRentalEndDateAsync(id, newEndDate);
+                return Ok(updatedRental);
             }
-
-            if (newEndDate <= rental.RentalStartDate)
+            catch (ArgumentException ex)
             {
-                return BadRequest("Rental end date must be after the start date.");
+                return BadRequest(ex.Message);
             }
-
-            rental.RentalEndDate = newEndDate;
-
-            await _dataContext.SaveChangesAsync();
-
-            return Ok(rental);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-
     }
 }
