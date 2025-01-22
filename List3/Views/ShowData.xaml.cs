@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Windows;
-using List3.Commands;
+﻿using System.Windows;
 using List3.ViewModels;
 
 namespace List3

@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using List3.Models;
-using List3.Commands;
 using System.Windows;
+using System.Windows.Input;
+using List3.Commands;
+using List3.Models;
 
 namespace List3.ViewModels
 {
     public class RentCarViewModel : INotifyPropertyChanged
     {
-        
         private string _customerName;
         private object _selectedCar;
         private DateTime? _rentalStartDate;
@@ -75,7 +70,7 @@ namespace List3.ViewModels
         {
             if (SelectedCar == null || string.IsNullOrWhiteSpace(CustomerName) || RentalStartDate == null || RentalEndDate == null)
             {
-                MessageBox.Show("Wszystkie pola muszą być wypełnione!");
+                MessageBox.Show("All fields must be filled in!");
                 return;
             }
 
@@ -92,11 +87,11 @@ namespace List3.ViewModels
 
             if (isSuccess)
             {
-                MessageBox.Show("Wypożyczenie zostało pomyślnie dodane.");
+                MessageBox.Show("The rental has been successfully added.");
             }
             else
             {
-                MessageBox.Show("Wystąpił problem podczas dodawania wypożyczenia.");
+                MessageBox.Show("An error occurred while adding the rental.");
             }
         }
 

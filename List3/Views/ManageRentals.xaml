@@ -35,23 +35,20 @@
             <Setter Property="HeadersVisibility" Value="Column"/>
         </Style>
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
         <Label Content="Manage Current Car Rentals" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="0"/>
-
         <DataGrid x:Name="PersonDataGrid" ItemsSource="{Binding Rentals}" SelectedItem="{Binding SelectedCar}" 
                   Margin="10" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Car.Brand}" Header="Brand" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Car.Model}" Header="Model" Width="*"/>
-                <DataGridTextColumn Binding="{Binding CustomerName}" Header="Start Date" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CustomerName}" Header="Customer Name" Width="*"/>
                 <DataGridTextColumn Binding="{Binding RentalStartDate}" Header="Start Date" Width="*"/>
                 <DataGridTextColumn Binding="{Binding RentalEndDate}" Header="End Date" Width="*"/>
             </DataGrid.Columns>

@@ -1,8 +1,6 @@
-﻿using CarRentalAPI.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using CarRentalAPI.Entities;
 using CarRentalAPI.Repository;
-using CarRentalAPI.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRentalAPI.Controllers
 {

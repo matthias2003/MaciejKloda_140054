@@ -1,6 +1,5 @@
 ﻿using CarRentalAPI.Data;
 using CarRentalAPI.Entities;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalAPI.Repository

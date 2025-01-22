@@ -1,12 +1,8 @@
-﻿using List3.Commands;
+﻿using System.Windows;
 using List3.ViewModels;
-using System.Windows;
 
 namespace List3
 {
-    /// <summary>
-    /// Interaction logic for AddPerson.xaml
-    /// </summary>
     public partial class CarWindow : Window
     {
         public CarWindow()

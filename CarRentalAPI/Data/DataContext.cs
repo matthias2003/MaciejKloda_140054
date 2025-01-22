@@ -17,17 +17,16 @@ namespace CarRentalAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Rental>()
-             .HasOne(r => r.Car)  // Rental ma jeden Car
-             .WithOne(c => c.Rental)  // Car ma jeden Rental
-             .HasForeignKey<Rental>(r => r.CarId)  // Klucz obcy w Rental wskazuje na Car
-             .OnDelete(DeleteBehavior.Cascade);  // Jeśli Rental zostanie usunięty, usuwamy też Car
+             .HasOne(r => r.Car) 
+             .WithOne(c => c.Rental)
+             .HasForeignKey<Rental>(r => r.CarId)
+             .OnDelete(DeleteBehavior.Cascade);
 
-            // Zdefiniowano, że Car może (ale nie musi) mieć Rental
             modelBuilder.Entity<Car>()
-                .HasOne(c => c.Rental)  // Car ma jeden Rental
-                .WithOne(r => r.Car)  // Rental ma jeden Car
-                .HasForeignKey<Rental>(r => r.CarId)  // Klucz obcy w Rental wskazuje na Car
-                .IsRequired(false);  // Opcjonalność relacji
+                .HasOne(c => c.Rental)
+                .WithOne(r => r.Car)
+                .HasForeignKey<Rental>(r => r.CarId)
+                .IsRequired(false);
 
         }
     }

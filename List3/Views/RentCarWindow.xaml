@@ -33,15 +33,12 @@
             </Setter>
         </Style>
     </Window.Resources>
-
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Label Content="Rent a car" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-
         <Grid Grid.Row="1" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -54,13 +51,11 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
-            <Label Content="Klient:" Grid.Row="0"/>
+            <Label Content="Client:" Grid.Row="0"/>
             <Border Grid.Row="1" CornerRadius="5" BorderBrush="#D1D1D1" BorderThickness="1" Padding="2" Height="40">
                 <TextBox Text="{Binding CustomerName}" Background="Transparent" BorderThickness="0" Padding="8" VerticalContentAlignment="Center"/>
             </Border>
-
-            <Label Content="Samochód:" Grid.Row="2" Margin="0,15,0,5"/>
+            <Label Content="Car:" Grid.Row="2" Margin="0,15,0,5"/>
             <Border Grid.Row="3" CornerRadius="5" BorderBrush="#D1D1D1" BorderThickness="1" Padding="2" Height="40">
                 <ComboBox ItemsSource="{Binding AvailableCars}" SelectedItem="{Binding SelectedCar}" Background="Transparent" BorderThickness="0">
                 <ComboBox.ItemTemplate>
@@ -73,17 +68,15 @@
                 </ComboBox.ItemTemplate>
                 </ComboBox>
             </Border>
-
-            <Label Content="Data rozpoczęcia:" Grid.Row="4" Margin="0,15,0,5"/>
+            <Label Content="Start date:" Grid.Row="4" Margin="0,15,0,5"/>
             <Border Grid.Row="5" CornerRadius="5" BorderBrush="#D1D1D1" BorderThickness="1" Padding="2" Height="50">
                 <DatePicker SelectedDate="{Binding RentalStartDate}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch"/>
             </Border>
 
-            <Label Content="Data zakończenia:" Grid.Row="6" Margin="0,15,0,5"/>
+            <Label Content="End date:" Grid.Row="6" Margin="0,15,0,5"/>
             <Border Grid.Row="7" CornerRadius="5" BorderBrush="#D1D1D1" BorderThickness="1" Padding="2" Height="50">
                 <DatePicker SelectedDate="{Binding RentalEndDate}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch"/>
             </Border>
-
             <Button Grid.Row="8" Margin="0,20,0,0" Content="Rent" Command="{Binding SubmitCommand}"/>
         </Grid>
     </Grid>

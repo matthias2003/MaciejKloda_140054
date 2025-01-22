@@ -16,7 +16,6 @@ namespace List3.ViewModels
     public class ShowDataViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Car> Cars { get; set; } = new ObservableCollection<Car>();
-
         private Car _selectedCar;
 
         public Car SelectedCar
@@ -33,7 +32,6 @@ namespace List3.ViewModels
         public ICommand DeletePersonCommand { get; }
         public ICommand EditPersonCommand { get; }
         
-
         public ShowDataViewModel()
         {
             Cars = Database.GetData();
@@ -42,9 +40,6 @@ namespace List3.ViewModels
             DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
             EditPersonCommand = new RelayCommand(EditCar, CanModifyCar);
         }
-
-
-
         private void AddCar()
         {
             Car newCar = new Car();
@@ -102,7 +97,6 @@ namespace List3.ViewModels
         {
             return SelectedCar != null;
         }
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -115,6 +109,5 @@ namespace List3.ViewModels
             Cars = Database.GetData();
             OnPropertyChanged(nameof(Cars));
         }
-
     }
 }

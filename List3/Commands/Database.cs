@@ -32,7 +32,7 @@ namespace List3.Commands
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}");
+                Debug.WriteLine($"Error: {response.StatusCode}");
             }
 
             return Cars;
@@ -47,11 +47,11 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Pomyślnie dodano samochód!");
+                Debug.WriteLine("Sucessfully added");
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
         }
 
@@ -66,11 +66,11 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Pomyślnie dodano samochód!");
+                Debug.WriteLine("Sucessfully updated");
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
         }
 
@@ -82,11 +82,11 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Pomyślnie usunięto samochód!");
+                Debug.WriteLine("Sucessfully deleted");
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
         }
 
@@ -106,7 +106,7 @@ namespace List3.Commands
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
 
             return availableCars;
@@ -124,7 +124,7 @@ namespace List3.Commands
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
                 return false;
             }
         }
@@ -137,7 +137,6 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine($"Response Content: {response.Content}");
                 var rentalsList = JsonSerializer.Deserialize<List<Rental>>(response.Content,
                    new JsonSerializerOptions
                    {
@@ -151,7 +150,7 @@ namespace List3.Commands
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
 
             return rentals;
@@ -165,11 +164,11 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Pomyślnie usunięto rental!");
+                Debug.WriteLine("Sucessfully deleted");
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
             }
         }
 
@@ -184,12 +183,12 @@ namespace List3.Commands
 
             if (response.IsSuccessful)
             {
-                Debug.WriteLine("Pomyślnie zaktualizowano datę zakończenia wynajmu.");
+                Debug.WriteLine("Sucessfully updated date");
                 return true;
             }
             else
             {
-                Debug.WriteLine($"Błąd: {response.StatusCode}, {response.Content}");
+                Debug.WriteLine($"Error: {response.StatusCode}, {response.Content}");
                 return false;
             }
         }
