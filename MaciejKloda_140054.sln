@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "List3", "List3\List3.csproj", "{9BDF15A5-0CD1-465A-8B30-A3C938E34A0C}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CarRentalDatabase", "CarRentalDatabase\CarRentalDatabase.sqlproj", "{91F0F4DE-7642-4D4E-9AEE-34CC21EEE771}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalAPI", "CarRentalAPI\CarRentalAPI.csproj", "{3D1304EE-D1E5-451D-883A-263CF83BC851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{91F0F4DE-7642-4D4E-9AEE-34CC21EEE771}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91F0F4DE-7642-4D4E-9AEE-34CC21EEE771}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91F0F4DE-7642-4D4E-9AEE-34CC21EEE771}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3D1304EE-D1E5-451D-883A-263CF83BC851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1304EE-D1E5-451D-883A-263CF83BC851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1304EE-D1E5-451D-883A-263CF83BC851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1304EE-D1E5-451D-883A-263CF83BC851}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

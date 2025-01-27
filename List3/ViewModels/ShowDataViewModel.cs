@@ -1,17 +1,15 @@
-﻿using List3.Commands;
-using List3.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using List3.Commands;
+using List3.Models;
 
 namespace List3.ViewModels
 {
     public class ShowDataViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Car> Cars { get; set; } = new ObservableCollection<Car>();
-
         private Car _selectedCar;
 
         public Car SelectedCar
@@ -23,38 +21,26 @@ namespace List3.ViewModels
                 OnPropertyChanged("SelectedCar");
             }
         }
-
         public ICommand AddPersonCommand { get; }
         public ICommand DeletePersonCommand { get; }
         public ICommand EditPersonCommand { get; }
-
-
+        
         public ShowDataViewModel()
         {
-            if (File.Exists("D://listOfCars.xml"))
-            {
-                var persons = Serialization.DeserializeToObject<List<Car>>("D://listOfCars.xml");
-                foreach (var person in persons)
-                {
-                    Cars.Add(person);
-                }
-            }
-            else
-            {
-                var db = new Database();
-                db.ConnectToDatabase();
-                Cars = db.GetData();
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-                //Cars.Add(new Car("aaaa", "bbbb", "1231232"));
-            }
-
+            LoadDataAsync();
             AddPersonCommand = new RelayCommand(AddCar);
             DeletePersonCommand = new RelayCommand(DeleteCar, CanModifyCar);
             EditPersonCommand = new RelayCommand(EditCar, CanModifyCar);
         }
 
-        private void AddCar()
+        private async Task LoadDataAsync()
+        {
+            var cars = await Database.GetData();
+            Cars = new ObservableCollection<Car>(cars);
+            OnPropertyChanged(nameof(Cars));
+        }
+
+        private async void AddCar()
         {
             Car newCar = new Car();
             CarWindow addCarnWindow = new CarWindow("Add new car");
@@ -63,21 +49,23 @@ namespace List3.ViewModels
 
             if (viewModel.IsOkPressed)
             {
+                newCar.Id = 0;
                 newCar.Brand = viewModel.Brand;
                 newCar.Model = viewModel.Model;
                 newCar.VinNumber = viewModel.VinNumber;
 
-                Cars.Add(newCar);
+                await Database.AddCarToDatabase(newCar);
+                await LoadDataAsync();
             }
         }
 
-        private void EditCar()
+        private async void EditCar()
         {
             if (SelectedCar != null)
             {
                 var editPersonWindow = new CarWindow("Edit car");
                 CarWindowViewModel viewModel = (CarWindowViewModel)editPersonWindow.DataContext;
-
+               
                 viewModel.Brand = SelectedCar.Brand;
                 viewModel.Model = SelectedCar.Model;
                 viewModel.VinNumber = SelectedCar.VinNumber;
@@ -89,15 +77,19 @@ namespace List3.ViewModels
                     SelectedCar.Brand = viewModel.Brand;
                     SelectedCar.Model = viewModel.Model;
                     SelectedCar.VinNumber = viewModel.VinNumber;
+
+                    await Database.EditCar(SelectedCar);
+                    await LoadDataAsync();
                 }
             }
         }
 
-        private void DeleteCar()
+        private async void DeleteCar()
         {
             if (SelectedCar != null)
             {
-                Cars.Remove(SelectedCar);
+                await Database.DeleteCar(SelectedCar);
+                await LoadDataAsync();
             }
         }
 
@@ -105,13 +97,11 @@ namespace List3.ViewModels
         {
             return SelectedCar != null;
         }
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }
